@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pembayaran - Dana & QRIS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .payment-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .payment-header {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .payment-header i {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .payment-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .payment-content {
+            padding: 25px;
+        }
+
+        .dana-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .dana-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to bottom right, #00B5F1, #0085FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .dana-logo i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .dana-number-container {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 18px;
+            width: 100%;
+            text-align: center;
+            border: 2px dashed #ddd;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .dana-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2575fc;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .dana-name {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .copy-btn {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(to right, #1c68e8, #5a0cb9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn i {
+            margin-right: 10px;
+        }
+
+        .copy-success {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .qris-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .qris-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qris-title i {
+            margin-right: 10px;
+            color: #2575fc;
+        }
+
+        .qris-image-container {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            margin-bottom: 20px;
+        }
+
+        .qris-image {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions {
+            background-color: #f0f7ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .instructions h3 {
+            color: #2575fc;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .instructions h3 i {
+            margin-right: 10px;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .payment-content {
+                padding: 20px;
+            }
+            
+            .dana-number {
+                font-size: 1.5rem;
+            }
+            
+            .copy-btn {
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .dana-number {
+                font-size: 1.3rem;
+            }
+            
+            .payment-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-credit-card"></i> Pembayaran</h1>
+            <p>Pilih metode pembayaran yang Anda inginkan</p>
+        </div>
+        
+        <div class="payment-card">
+            <div class="payment-header">
+                <i class="fab fa-d-and-d"></i>
+                <h2>Transfer Dana</h2>
+            </div>
+            
+            <div class="payment-content">
+                <div class="dana-info">
+                    <div class="dana-logo">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    
+                    <div class="dana-number-container">
+                        <div class="dana-number" id="danaNumber">6283831960212</div>
+                        <div class="dana-name">Atas nama: dede Muh*****</div>
+                    </div>
+                    
+                    <button class="copy-btn" id="copyButton">
+                        <i class="far fa-copy"></i> Salin Nomor Dana
+                    </button>
+                    
+                    <div class="copy-success" id="copySuccess">
+                        <i class="fas fa-check-circle"></i> Nomor berhasil disalin!
+                    </div>
+                </div>
+                
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Cara Pembayaran via Dana</h3>
+                    <ol>
+                        <li>Buka aplikasi <strong>Dana</strong> di ponsel Anda</li>
+                        <li>Pilih menu <strong>Kirim</strong> atau <strong>Transfer</strong></li>
+                        <li>Masukkan nomor <strong>6283831960212</strong></li>
+                        <li>Periksa nama penerima: <strong>dede Muh*****</strong></li>
+                        <li>Masukkan nominal transfer dan konfirmasi</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="payment-card">
+            <div class="payment-header">
+                <i class="fas fa-qrcode"></i>
+                <h2>QRIS Payment</h2>
+            </div>
+            
+            <div class="payment-content">
+                <div class="qris-section">
+                    <div class="qris-title">
+                        <i class="fas fa-bolt"></i> Scan QR Code
+                    </div>
+                    
+                    <div class="qris-image-container">
+                        <img src="https://i.ibb.co/4ZS0PVPM/20251121-083635.jpg" alt="QRIS Code" class="qris-image" id="qrisImage">
+                    </div>
+                    
+                    <p>Gunakan aplikasi mobile banking, e-wallet, atau aplikasi pembayaran lainnya yang mendukung QRIS untuk scan kode di atas.</p>
+                </div>
+                
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Cara Pembayaran via QRIS</h3>
+                    <ol>
+                        <li>Buka aplikasi pembayaran (Dana, OVO, GoPay, mobile banking, dll.)</li>
+                        <li>Pilih menu <strong>Bayar</strong> atau <strong>Scan QRIS</strong></li>
+                        <li>Arahkan kamera ke kode QR di atas</li>
+                        <li>Masukkan nominal pembayaran (jika perlu)</li>
+                        <li>Konfirmasi dan selesaikan pembayaran</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 Halaman Pembayaran | Pastikan Anda membayar ke nomor dan nama yang benar</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyButton = document.getElementById('copyButton');
+            const danaNumber = document.getElementById('danaNumber');
+            const copySuccess = document.getElementById('copySuccess');
+            const qrisImage = document.getElementById('qrisImage');
+            
+            // Fungsi untuk menyalin nomor Dana
+            copyButton.addEventListener('click', function() {
+                const textToCopy = danaNumber.textContent;
+                
+                // Menggunakan Clipboard API modern
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // Tampilkan pesan sukses
+                        copySuccess.style.display = 'block';
+                        copyButton.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                        copyButton.style.background = 'linear-gradient(to right, #28a745, #20c997)';
+                        
+                        // Reset tampilan setelah 3 detik
+                        setTimeout(() => {
+                            copySuccess.style.display = 'none';
+                            copyButton.innerHTML = '<i class="far fa-copy"></i> Salin Nomor Dana';
+                            copyButton.style.background = 'linear-gradient(to right, #2575fc, #6a11cb)';
+                        }, 3000);
+                    })
+                    .catch(err => {
+                        console.error('Gagal menyalin teks: ', err);
+                        // Fallback untuk browser lama
+                        const textArea = document.createElement('textarea');
+                        textArea.value = textToCopy;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        
+                        // Tampilkan pesan sukses
+                        copySuccess.style.display = 'block';
+                        copyButton.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                        copyButton.style.background = 'linear-gradient(to right, #28a745, #20c997)';
+                        
+                        // Reset tampilan setelah 3 detik
+                        setTimeout(() => {
+                            copySuccess.style.display = 'none';
+                            copyButton.innerHTML = '<i class="far fa-copy"></i> Salin Nomor Dana';
+                            copyButton.style.background = 'linear-gradient(to right, #2575fc, #6a11cb)';
+                        }, 3000);
+                    });
+            });
+            
+            // Efek hover untuk gambar QRIS
+            qrisImage.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            qrisImage.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+            
+            // Fitur klik untuk memperbesar gambar QRIS (pada perangkat mobile)
+            qrisImage.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    const currentScale = this.style.transform === 'scale(1.05)' ? 1.05 : 1;
+                    this.style.transform = currentScale === 1 ? 'scale(1.8)' : 'scale(1)';
+                }
+            });
+            
+            // Menambahkan tahun saat ini di footer
+            document.querySelector('.footer p').innerHTML = `© ${new Date().getFullYear()} Halaman Pembayaran | Pastikan Anda membayar ke nomor dan nama yang benar`;
+        });
+    </script>
+</body>
+</html>
